@@ -1,0 +1,4 @@
+interface:
+  display_name: "Send It"
+  short_description: "Build and deploy previews"
+  default_prompt: "Use $send-it to build this project and deploy a Vercel preview."
