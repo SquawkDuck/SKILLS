@@ -4,7 +4,7 @@ Shared Codex skills repository.
 
 ## Skills
 
-- `hit-me-plan`: starts with `hit me`, builds a root `plan.MD` one question at a time, then finalizes the plan when enough information has been gathered.
+- `hit-me-plan`: starts with `hit me`, builds a feature-root `plan.MD` one question at a time, then finalizes the plan when enough information has been gathered.
 
 ## Install on another machine
 

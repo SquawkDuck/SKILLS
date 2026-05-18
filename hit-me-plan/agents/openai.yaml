@@ -1,4 +1,4 @@
 interface:
   display_name: "Hit Me Plan"
-  short_description: "Build or finalize root plan.MD"
-  default_prompt: "Use $hit-me-plan when I say hit me once to build a root plan.MD through one question at a time, then finalize it when I say there is enough information."
+  short_description: "Build or finalize feature-root plan.MD"
+  default_prompt: "Use $hit-me-plan when I say hit me once to build a feature-root plan.MD through one question at a time, then finalize it when I say there is enough information."

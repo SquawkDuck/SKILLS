@@ -1,35 +1,55 @@
 ---
 name: hit-me-plan
-description: Use when the user's message contains "hit me" to start an interactive feature/project planning loop, or when continuing an active hit-me-plan loop from an existing root-level plan.MD. The user only needs to say "hit me" once. Continue by capturing each user answer, updating plan.MD, and asking exactly one next question until the user says there are enough questions, enough information, or enough details, then finalize plan.MD into an optimized implementation plan and summarize it.
+description: Use when the user's message contains "hit me" to start an interactive feature/project planning loop, or when continuing an active hit-me-plan loop from an existing feature-root plan.MD. The user only needs to say "hit me" once. Continue by capturing each user answer, updating the feature's plan.MD, and asking exactly one next question until the user says there are enough questions, enough information, or enough details, then finalize plan.MD into an optimized implementation plan and summarize it.
 ---
 
 # Hit Me Plan
 
 ## Overview
 
-Maintain a root `plan.MD` for the feature or project described by the user. The user says `hit me` once to start; after that, continue the active planning loop from normal user answers until the user says there are enough questions, enough information, or enough details.
+Maintain one `plan.MD` per feature or project in that feature's root folder. The
+user says `hit me` once to start; after that, continue the active planning loop
+from normal user answers until the user says there are enough questions, enough
+information, or enough details.
 
 ## Workflow
 
-1. Resolve the root folder.
-   - Prefer the current Git repository root from `git rev-parse --show-toplevel`.
-   - If no Git root exists, use the current working directory.
-   - Use `plan.MD` exactly as the planning file name.
+1. Resolve the feature root folder.
+   - Save the planning file in the root folder of the specific feature or
+     project being planned, not in the Git repository root by default.
+   - Prefer an explicit feature/module path from the user when one is provided.
+   - If the user gives file paths, resolve the smallest stable directory that
+     owns the feature rather than the deepest leaf file directory.
+   - If no path is provided, inspect the repository enough to infer the most
+     likely feature root from existing modules, routes, pages, or components.
+   - If the feature root cannot be inferred safely, ask exactly one question
+     asking where the feature should live before creating a planning file.
+   - Use `plan.MD` exactly as the planning file name inside the resolved feature
+     root.
+   - Never create or update a planning file in the repository root unless the
+     feature itself is genuinely rooted at the repository root.
 
-2. Read any existing `plan.MD`.
-   - Treat it as the source of truth for previous planning context.
+2. Read any existing `plan.MD` in the resolved feature root.
+   - Treat it as the source of truth only when it describes the same feature or
+     project.
    - Preserve useful existing content.
    - Repair obvious structure drift directly if the document has become disorganized.
-   - If `Current Open Question` is not finalized, treat the conversation as an active hit-me-plan loop even when the latest user message does not contain `hit me`.
+   - If `Current Open Question` is not finalized and the plan describes the
+     same feature, treat the conversation as an active hit-me-plan loop even
+     when the latest user message does not contain `hit me`.
+   - If an existing `plan.MD` in that folder describes a different feature, do
+     not overwrite it. Resolve a more specific feature root or ask one question
+     for the correct feature location.
 
 3. Capture the latest user input.
    - If the prompt includes a new feature/project description, summarize it under `Overall Idea`.
    - If the prompt answers the previous question, add the answer to `Collected Answers` and fold the implications into the rest of the plan.
-   - If the prompt only says `hit me`, create the document with placeholders and ask the first clarifying question.
+   - If the prompt only says `hit me`, create the document with placeholders in
+     the resolved feature root and ask the first clarifying question.
    - If the prompt says there are enough questions, enough information, enough details, no more questions are needed, "you have enough information", "you have enough details", or a similar stop signal, switch to finalization.
    - Treat obvious typo variants of the stop signal, such as "enought questions" or "enought informations", as finalization requests.
 
-4. Update `plan.MD` before replying.
+4. Update the resolved feature-root `plan.MD` before replying.
    - Keep the document concise and useful, not a transcript.
    - Include at least these sections:
      - `# Plan`
@@ -41,7 +61,7 @@ Maintain a root `plan.MD` for the feature or project described by the user. The 
    - Add other sections only when the user's feature/project needs them, such as `Constraints`, `Risks`, or `Acceptance Criteria`.
    - Keep `Current Open Question` in sync with the one question asked in the reply.
 
-5. If finalizing, reanalyze the full `plan.MD`.
+5. If finalizing, reanalyze the full resolved feature-root `plan.MD`.
    - Read the entire current document before changing it.
    - Resolve contradictions when the later user answers clearly supersede earlier notes.
    - Reorganize the plan around the best practical implementation path for the feature/project.
@@ -70,7 +90,7 @@ Maintain a root `plan.MD` for the feature or project described by the user. The 
 
 ## First-Turn Template
 
-Use this shape when creating a new `plan.MD`:
+Use this shape when creating a new feature-root `plan.MD`:
 
 ```markdown
 # Plan
@@ -103,8 +123,9 @@ Replace `TBD` entries immediately when the user provides real information.
 
 ## Reply Format
 
-After updating `plan.MD`, reply with:
+After updating the feature-root `plan.MD`, reply with:
 
-- A brief note that `plan.MD` was created or updated.
+- A brief note that `plan.MD` was created or updated, including its feature
+  root path when that helps disambiguate multiple plans.
 - During discovery, exactly one question, matching `## Current Open Question`.
 - During finalization, a brief note that `plan.MD` was reorganized into an implementation plan, followed by a concise summary of the full plan and implementation steps, with no question.
