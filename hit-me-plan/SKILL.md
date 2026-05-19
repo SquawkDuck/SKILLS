@@ -1,6 +1,6 @@
 ---
 name: hit-me-plan
-description: Use when the user's message contains "hit me" to start an interactive feature/project planning loop, or when continuing an active hit-me-plan loop from an existing feature-root plan.MD. The user only needs to say "hit me" once. Continue by capturing each user answer, updating the feature's plan.MD, and asking exactly one next question until the user says there are enough questions, enough information, or enough details, then finalize plan.MD into an optimized implementation plan and summarize it.
+description: Use when the user's message contains "hit me" to start an interactive feature/project planning loop, or when continuing an active hit-me-plan loop from an existing feature-root plan.MD. The user only needs to say "hit me" once. Continue by capturing each user answer, updating the feature's plan.MD, and asking exactly one next question until the user says there are enough questions, enough information, or enough details, then finalize plan.MD into an optimized implementation plan, summarize it, and hand off by entering Plan mode.
 ---
 
 # Hit Me Plan
@@ -71,6 +71,11 @@ information, or enough details.
    - Set `Current Open Question` to `None - planning finalized.`
    - Do not ask another question in the reply.
    - End the reply with a concise summary of the full plan and implementation steps.
+   - Treat entering Plan mode as the final handoff after finalization.
+   - If the runtime can switch modes directly, enter Plan mode after the final
+     summary.
+   - If the runtime cannot switch modes directly, finish the reply with a clear
+     instruction for the user to enter Plan mode before implementation.
 
 6. If not finalizing, ask exactly one question.
    - Ask the single most useful next question for refining the feature/project.
@@ -128,4 +133,4 @@ After updating the feature-root `plan.MD`, reply with:
 - A brief note that `plan.MD` was created or updated, including its feature
   root path when that helps disambiguate multiple plans.
 - During discovery, exactly one question, matching `## Current Open Question`.
-- During finalization, a brief note that `plan.MD` was reorganized into an implementation plan, followed by a concise summary of the full plan and implementation steps, with no question.
+- During finalization, a brief note that `plan.MD` was reorganized into an implementation plan, followed by a concise summary of the full plan and implementation steps, then the Plan mode handoff, with no question.
