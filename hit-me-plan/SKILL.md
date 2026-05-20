@@ -68,6 +68,13 @@ information, or enough details.
    - Break the work into optimal ordered steps if that is not already done.
    - Replace vague intermediate steps with concrete, implementable steps.
    - Add or update `Implementation Plan`, `Acceptance Criteria`, `Risks`, and `Open Decisions` when useful.
+   - Decide whether implementation needs multiple agents. If the plan can be
+     handled cleanly by a single agent on one critical path, do not call
+     `$agents-smith` and do not add a multi-agent handoff.
+   - Only if implementation crosses multiple independent concerns, add an
+     `Execution Handoff` section at the end of the plan calling
+     `$agents-smith` for the next execution step. Keep the detailed
+     multi-agent split out of this skill.
    - Set `Current Open Question` to `None - planning finalized.`
    - Do not ask another question in the reply.
    - End the reply with a concise summary of the full plan and implementation steps.
@@ -133,4 +140,8 @@ After updating the feature-root `plan.MD`, reply with:
 - A brief note that `plan.MD` was created or updated, including its feature
   root path when that helps disambiguate multiple plans.
 - During discovery, exactly one question, matching `## Current Open Question`.
-- During finalization, a brief note that `plan.MD` was reorganized into an implementation plan, followed by a concise summary of the full plan and implementation steps, then the Plan mode handoff, with no question.
+- During finalization, a brief note that `plan.MD` was reorganized into an
+  implementation plan, followed by a concise summary of the full plan and
+  implementation steps. Include the `$agents-smith` handoff only when the plan
+  crosses independent concerns; otherwise omit it. Then provide the Plan mode
+  handoff, with no question.

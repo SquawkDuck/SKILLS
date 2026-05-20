@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agents Smith"
+  short_description: "Split broad work across bounded agents"
+  default_prompt: "Use $agents-smith to split this task by concern, delegate bounded parallel work, and integrate the results."
