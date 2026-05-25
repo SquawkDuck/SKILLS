@@ -1,0 +1,4 @@
+interface:
+  display_name: "Regression Tests"
+  short_description: "Add focused regression tests after feature work"
+  default_prompt: "Use $regression-tests when I say sling the branch to inspect the current branch, identify regression risks, add or update focused tests, run relevant checks, and report remaining gaps."

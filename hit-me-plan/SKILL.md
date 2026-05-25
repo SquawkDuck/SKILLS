@@ -78,6 +78,9 @@ information, or enough details.
    - Set `Current Open Question` to `None - planning finalized.`
    - Do not ask another question in the reply.
    - End the reply with a concise summary of the full plan and implementation steps.
+   - Include a lightweight reminder that after feature development is complete,
+     the user can say `sling the branch` to use `$regression-tests` and add
+     final regression tests to the feature.
    - Treat entering Plan mode as the final handoff after finalization.
    - If the runtime can switch modes directly, enter Plan mode after the final
      summary.
