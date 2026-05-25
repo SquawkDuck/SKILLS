@@ -1,9 +1,9 @@
 ---
-name: branch
-description: Use when the user says "dry it" or asks for a current feature-branch review focused on drying up code. Inspect all changes from the beginning of the current feature branch, including uncommitted work, and review or edit for stale leftovers, dead code, duplication, repeated components that should use shared components, and opportunities to shorten code without compromising behavior, stability, or tests.
+name: dry-branch
+description: Use when the user says "dry the branch" or asks for a current feature-branch review focused on drying up code. Inspect all changes from the beginning of the current feature branch, including uncommitted work, and review or edit for stale leftovers, dead code, duplication, repeated components that should use shared components, and opportunities to shorten code without compromising behavior, stability, or tests.
 ---
 
-# Branch
+# Dry Branch
 
 ## Overview
 

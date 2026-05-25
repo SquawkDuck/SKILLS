@@ -1,4 +1,0 @@
-interface:
-  display_name: "Branch"
-  short_description: "Review and dry up branch changes"
-  default_prompt: "Use $branch to dry it across the current feature branch."

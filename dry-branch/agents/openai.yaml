@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dry Branch"
+  short_description: "Dry up current branch changes"
+  default_prompt: "Use $dry-branch to dry the branch."
