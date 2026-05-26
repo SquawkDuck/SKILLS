@@ -38,6 +38,12 @@ the smaller version is as stable, readable, and well-covered as the original.
    - Search with `rg` for distinctive names, copied labels, repeated JSX,
      validators, mappers, selectors, styles, API calls, constants, test setup,
      and old feature names.
+   - When a branch removes or relocates a feature, entry point, column, button,
+     route, or payload field, make a search vocabulary from all related labels,
+     component names, response keys, mapper props, cache names, endpoint names,
+     test titles, and documentation phrases. Use that vocabulary for a
+     negative-search pass across UI, API, shared mappers, tests, docs, and
+     planning files.
 
 3. Scan commit history.
    - Run `git log --reverse --name-status <base>..HEAD`.
@@ -45,6 +51,15 @@ the smaller version is as stable, readable, and well-covered as the original.
      areas, old component names, and reverted approaches.
    - Use the history scan to guide cleanup, not to review every commit with the
      same depth.
+   - If the user explicitly identifies commits as build/generated-artifact
+     commits to ignore, record that boundary and do not include those commits in
+     feature cleanup decisions. Still mention them in the final branch-base
+     context when relevant.
+   - For suspicious commit messages made mostly of placeholder characters, check
+     the file list before acting. If the commit only changes generated build
+     metadata/artifacts and the user says to ignore it, leave those files alone.
+     Do not revert ignored generated artifacts just to make the branch diff
+     smaller.
 
 4. Deep-dive only suspicious commits.
    - Inspect commits that introduced code later replaced by newer branch work.
@@ -62,8 +77,20 @@ the smaller version is as stable, readable, and well-covered as the original.
      earlier version of the feature.
    - Check whether new code still carries fallback paths for data shapes,
      components, routes, or APIs that the branch no longer uses.
+   - Do not stop at the visible UI. Trace removed UI all the way through the
+     data contract: endpoint response fields, thunks/loaders, row mappers,
+     schemas, tests, fixtures, docs, and plans. If a column or button is gone,
+     flag any still-active payload fields, cache calls, mapper props, or test
+     expectations that only existed for that UI.
+   - If a matching helper/cache/field remains because another live feature still
+     uses it, explicitly record why it is not a leftover and where that live
+     use is.
    - Treat generated files, lockfiles, migrations, snapshots, and vendored code
      cautiously; verify ownership before shortening them.
+   - Keep generated/build-only artifacts out of feature-level cleanup when the
+     user has classified them as intentional or irrelevant. Only touch them when
+     the user asks for that, when they contain secrets/private local data, or
+     when they directly break the requested validation.
 
 6. Shorten and reuse carefully.
    - Use commit history to find stale intent, but apply fixes only to the
@@ -98,4 +125,7 @@ the smaller version is as stable, readable, and well-covered as the original.
 - Lead with findings when the user asked for review only.
 - When edits were made, summarize the cleanup, files changed, and verification.
 - Always mention the branch base used, the checks run, and any residual risk.
+- For removal/relocation reviews, include the negative-search terms or leftover
+  categories checked, and call out any remaining matches as either removed,
+  intentionally retained, generated, or historical documentation.
 - Call out any duplication or leftover code intentionally left in place and why.
